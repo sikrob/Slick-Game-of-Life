@@ -18,21 +18,21 @@ import gameOfLifeSpecimens.Garden;
 public class GameOfLife extends BasicGame implements InputProviderListener {
 	private Garden garden;
 	private final int AUTO_RESOLUTION = 3;
-	private int autoIncrement = 10;
+	private int autoInterval = 7;
 	private int autoTimer = 0;
 	private boolean autoRunning = false;
 	
 	private InputProvider inputProvider;
 	private final Command UPDATE = new BasicCommand("update");
 	private final Command TOGGLE_AUTO = new BasicCommand("toggleAuto");
-	private final Command DECREASE_INCREMENT = new BasicCommand("decreaseIncrement");
-	private final Command INCREASE_INCREMENT = new BasicCommand("increaseIncrement");
+	private final Command DECREASE_INTERVAL = new BasicCommand("decreaseInterval");
+	private final Command INCREASE_INTERVAL = new BasicCommand("increaseInterval");
 	
 	public GameOfLife(String title, int gardenWidth, int gardenHeight) {
 		super(title);
 		try {
 			garden = new Garden(gardenWidth, gardenHeight);
-			garden.setInitialTestState();
+			garden.setRandomStates();
 		} catch (Exception e) {
 			Logger.getLogger(GameOfLife.class.getName()).log(Level.SEVERE, "Exception caught on attempt to instantiate GameOfLife.garden", e);
 		}
@@ -44,14 +44,14 @@ public class GameOfLife extends BasicGame implements InputProviderListener {
 		inputProvider.addListener(this);
 		inputProvider.bindCommand(new KeyControl(Input.KEY_SPACE), UPDATE);
 		inputProvider.bindCommand(new KeyControl(Input.KEY_A), TOGGLE_AUTO);
-		inputProvider.bindCommand(new KeyControl(Input.KEY_S), DECREASE_INCREMENT);
-		inputProvider.bindCommand(new KeyControl(Input.KEY_D), INCREASE_INCREMENT);
+		inputProvider.bindCommand(new KeyControl(Input.KEY_S), DECREASE_INTERVAL);
+		inputProvider.bindCommand(new KeyControl(Input.KEY_D), INCREASE_INTERVAL);
 	}
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
 		if (autoRunning) {
-			if (autoTimer++ >= autoIncrement) {
+			if (autoTimer++ >= autoInterval) {
 				garden.update();
 				autoTimer = 0;
 			}
@@ -60,9 +60,20 @@ public class GameOfLife extends BasicGame implements InputProviderListener {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
+		renderInfo(g);
 		renderGarden(g);
 	}
 
+	private void renderInfo(Graphics g) {
+		g.drawString("Howdy!", 10, 10);
+		g.drawString("Manually Increment: spacebar", 10, 25);
+		g.drawString("Toggle Auto Increment: a", 10, 40);
+		g.drawString("Speed Up Auto Increment: s", 10, 55);
+		g.drawString("Slow Down Auto Increment: d", 10, 70);
+		g.drawString("Auto Running:" + String.valueOf(autoRunning), 300, 40);
+		g.drawString("Auto Timing Interval:" + String.valueOf(autoInterval), 300, 55);
+	}
+	
 	private void renderGarden(Graphics g) {
 		for (int x = 0; x < garden.WIDTH; x++) {
 			for (int y = 0; y < garden.HEIGHT; y++) {
@@ -90,13 +101,13 @@ public class GameOfLife extends BasicGame implements InputProviderListener {
 			} else {
 				autoRunning = false;
 			}
-		} else if (c == DECREASE_INCREMENT) {
-			autoIncrement -= AUTO_RESOLUTION;
-			if (autoIncrement <= 0) {
-				autoIncrement = 1;
+		} else if (c == DECREASE_INTERVAL) {
+			autoInterval -= AUTO_RESOLUTION;
+			if (autoInterval <= 0) {
+				autoInterval = 1;
 			}
-		} else if (c == INCREASE_INCREMENT) {
-			autoIncrement += AUTO_RESOLUTION;
+		} else if (c == INCREASE_INTERVAL) {
+			autoInterval += AUTO_RESOLUTION;
 		}
 	}
 

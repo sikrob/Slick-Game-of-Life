@@ -9,8 +9,8 @@ import gameOfLifeEngine.GameOfLife;
 
 public class SlickGameOfLife {
 	
-	private static final int GARDEN_WIDTH = 50;
-	private static final int GARDEN_HEIGHT = 50;
+	private static final int GARDEN_WIDTH = 60;
+	private static final int GARDEN_HEIGHT = 60;
 	private static final int DISPLAY_WIDTH = GARDEN_WIDTH*10+10;
 	private static final int DISPLAY_HEIGHT = GARDEN_HEIGHT*10+100;
 	

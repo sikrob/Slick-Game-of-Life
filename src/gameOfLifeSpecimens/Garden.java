@@ -1,6 +1,7 @@
 package gameOfLifeSpecimens;
 
 import gameOfLifeSpecimens.Specimen;
+import java.util.Random;
 
 public class Garden {
 	public final int WIDTH;
@@ -24,18 +25,27 @@ public class Garden {
 			}
 		}
 	}
-	
-	
-	public void setInitialTestState() {
-		garden[1][0].isAlive = true;
-		garden[1][1].isAlive = true;
-		garden[1][2].isAlive = true;
+
+	public void setInitialState(int[][] liveList) {
+		for (int i = 0; i < liveList.length; i++) {
+			garden[liveList[i][0]][liveList[i][1]].isAlive = true;
+		}
+	}
+
+	public void setRandomStates() {
+		Random random = new Random();
+		for (int x = 0; x < WIDTH; x++) {
+			for (int y = 0; y < HEIGHT; y++) {
+				garden[x][y].isAlive = random.nextBoolean();
+			}
+		}
 	}
 	
 	public boolean specimenAliveAt(int x, int y) {
 		return garden[x][y].isAlive;
 	}
 	
+	// This is a nice compact approach for a walled garden.
 	private int neighborsForSpecimentAt(int x, int y) {
 		int neighbors = 0;
 		int xmin = x == 0 ? x : x-1;
