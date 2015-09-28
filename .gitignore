@@ -1,0 +1,13 @@
+# Ignore OSX specific meta files
+.DS_Store
+.Trashes
+*.swp
+
+# Ignore source files
+bin/
+*.class
+
+# Ignore eclipse files
+.classpath
+.project
+.settings/
