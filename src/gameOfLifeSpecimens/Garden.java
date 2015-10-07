@@ -6,6 +6,7 @@ import java.util.Random;
 public class Garden {
 	public final int WIDTH;
 	public final int HEIGHT;
+	private final boolean WALLED;
 	
 	private Specimen[][] garden;
 	private final int SURVIVAL_THRESHOLD = 2;
@@ -17,6 +18,7 @@ public class Garden {
 		}
 		WIDTH = width;
 		HEIGHT = height;
+		WALLED = false;
 		
 		garden = new Specimen[WIDTH][HEIGHT];
 		for (int x = 0; x < WIDTH; x++) {
