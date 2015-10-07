@@ -28,10 +28,11 @@ public class GameOfLife extends BasicGame implements InputProviderListener {
 	private final Command DECREASE_INTERVAL = new BasicCommand("decreaseInterval");
 	private final Command INCREASE_INTERVAL = new BasicCommand("increaseInterval");
 	
-	public GameOfLife(String title, int gardenWidth, int gardenHeight) {
+	public GameOfLife(String title, int gardenWidth, int gardenHeight, boolean gardenWalled) {
 		super(title);
 		try {
-			garden = new Garden(gardenWidth, gardenHeight);
+			garden = new Garden(gardenWidth, gardenHeight, gardenWalled);
+			
 			garden.setRandomStates();
 		} catch (Exception e) {
 			Logger.getLogger(GameOfLife.class.getName()).log(Level.SEVERE, "Exception caught on attempt to instantiate GameOfLife.garden", e);
