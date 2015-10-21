@@ -33,7 +33,11 @@ public class GameOfLife extends BasicGame implements InputProviderListener {
 	public GameOfLife(String title, int gardenWidth, int gardenHeight, boolean gardenWalled) {
 		super(title);
 		try {
-			garden = new WrappedGarden(gardenWidth, gardenHeight);
+			if (gardenWalled) {
+				garden = new WalledGarden(gardenWidth, gardenHeight);
+			} else {
+				garden = new WrappedGarden(gardenWidth, gardenHeight);
+			}
 			
 			garden.setRandomStates();
 		} catch (Exception e) {

@@ -6,7 +6,6 @@ import java.util.Random;
 public abstract class Garden {
 	public final int WIDTH;
 	public final int HEIGHT;
-	protected final boolean WALLED;
 	
 	protected Specimen[][] garden;
 	protected final int SURVIVAL_THRESHOLD = 2;
@@ -18,8 +17,6 @@ public abstract class Garden {
 		}
 		WIDTH = width;
 		HEIGHT = height;
-		
-		WALLED = true; // to be removed 
 		
 		garden = new Specimen[WIDTH][HEIGHT];
 		for (int x = 0; x < WIDTH; x++) {
@@ -48,6 +45,10 @@ public abstract class Garden {
 		return garden[x][y].isAlive;
 	}
 	
+	// This method is for determining how many specimens are near a given
+	// position (x,y). Along with the threshold values, this is used to
+	// determine if the cell at (x,y) will have a living specimen next
+	// turn.
 	protected abstract int neighborsForSpecimentAt(int x, int y);
 	
 	public void updateFutureLifeAt(int x, int y) {

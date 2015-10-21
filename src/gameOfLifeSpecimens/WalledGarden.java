@@ -23,5 +23,4 @@ public class WalledGarden extends Garden {
 		}
 		return neighbors;
 	}
-
 }

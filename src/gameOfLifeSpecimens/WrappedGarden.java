@@ -27,5 +27,4 @@ public class WrappedGarden extends Garden {
 		}		
 		return neighbors;
 	}
-
 }
