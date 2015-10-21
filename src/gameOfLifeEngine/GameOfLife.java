@@ -14,6 +14,8 @@ import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.command.KeyControl;
 
 import gameOfLifeSpecimens.Garden;
+import gameOfLifeSpecimens.WalledGarden;
+import gameOfLifeSpecimens.WrappedGarden;
 
 public class GameOfLife extends BasicGame implements InputProviderListener {
 	private Garden garden;
@@ -31,7 +33,7 @@ public class GameOfLife extends BasicGame implements InputProviderListener {
 	public GameOfLife(String title, int gardenWidth, int gardenHeight, boolean gardenWalled) {
 		super(title);
 		try {
-			garden = new Garden(gardenWidth, gardenHeight, gardenWalled);
+			garden = new WrappedGarden(gardenWidth, gardenHeight);
 			
 			garden.setRandomStates();
 		} catch (Exception e) {
