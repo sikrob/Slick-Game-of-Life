@@ -8,8 +8,6 @@ public abstract class Garden {
 	public final int HEIGHT;
 	
 	protected Specimen[][] garden;
-	protected final int SURVIVAL_THRESHOLD = 2;
-	protected final int POPULATE_THRESHOLD = 3;
 	
 	public Garden(int width, int height) throws Exception{
 		if (width <= 0 || height <= 0) {
@@ -53,7 +51,7 @@ public abstract class Garden {
 	
 	public void updateFutureLifeAt(int x, int y) {
 		int neighbors = neighborsForSpecimentAt(x, y);
-		if ((neighbors == SURVIVAL_THRESHOLD && garden[x][y].isAlive) || neighbors == POPULATE_THRESHOLD) {
+		if ((neighbors == Specimen.SURVIVAL_THRESHOLD && garden[x][y].isAlive) || neighbors == Specimen.POPULATE_THRESHOLD) {
 			garden[x][y].willBeAlive = true;
 		} else {
 			garden[x][y].willBeAlive = false;
